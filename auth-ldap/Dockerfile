@@ -12,7 +12,7 @@ COPY ldif_files /ldif_files
 # https://github.com/jwilder/dockerize
 # https://github.com/mefellows/dockerize-compose-demo
 
-ENV DOCKERIZE_VERSION "0.2.0"
+ENV DOCKERIZE_VERSION "0.3.0"
 
 RUN apt-get update && apt-get install -y wget
 

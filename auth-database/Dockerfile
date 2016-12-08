@@ -27,11 +27,9 @@ ENV POSTGRES_USER postgres
 
 ENV POSTGRES_DB cida_auth
 
-ENV AUTH_VERSION ${AUTH_VERSION:-"1.2.6"}
-
 ENV JAVA_HOME "/usr/lib/jvm/java-8-oracle"
 
-RUN /usr/bin/wget -O /root/auth-parent.tar.gz https://codeload.github.com/USGS-CIDA/cida-auth/tar.gz/auth-parent-${AUTH_VERSION} 
+RUN /usr/bin/wget -O /root/auth-parent.tar.gz https://codeload.github.com/USGS-CIDA/cida-auth/tar.gz/auth-parent-1.2.7
 
 RUN mkdir /liquibase
 

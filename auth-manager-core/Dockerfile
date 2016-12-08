@@ -2,8 +2,6 @@ FROM tomcat:8.0-jre8
 
 MAINTAINER Ivan Suftin <isuftin@usgs.gov>
 
-ENV AUTH_VERSION ${AUTH_VERSION:-"1.2.6"}
-
 ARG doi_network=false
 
 EXPOSE 8080
@@ -14,7 +12,7 @@ RUN if [ "${doi_network}" = true ]; then \
 		echo "\\n\\nca-certificate = /usr/lib/ssl/certs/DOIRootCA.crt" >> /etc/wgetrc; \
 	fi
 
-RUN wget -O /usr/local/tomcat/webapps/auth-manager-core.war "https://cida.usgs.gov/maven/service/local/artifact/maven/redirect?r=cida-public-releases&g=gov.usgs.cida.auth&a=auth-manager-core&v=${AUTH_VERSION}&e=war"
+RUN wget -O /usr/local/tomcat/webapps/auth-manager-core.war "https://cida.usgs.gov/maven/service/local/artifact/maven/redirect?r=cida-public-releases&g=gov.usgs.cida.auth&a=auth-manager-core&v=1.2.7&e=war"
 
 RUN wget -O /usr/local/tomcat/webapps/probe.war "https://github.com/psi-probe/psi-probe/releases/download/3.0.0.M3/probe.war"
 
