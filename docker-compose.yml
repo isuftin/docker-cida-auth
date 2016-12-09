@@ -93,4 +93,3 @@ services:
       - "compose${AUTH_ENV_LOCAL}.env"
     depends_on:
       - auth-database
-      - ldap-server

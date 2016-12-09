@@ -1,6 +1,6 @@
 # Auth Manager Core
 
-This container works as the back-end web service layer for the Auth Manager console in the CIDA Auth application. It also depends on the [Auth database container](https://hub.docker.com/r/usgs/auth-database/) and the [LDAP Server seed container](https://hub.docker.com/r/usgs/auth-ldap-seed/). It is easiest to run this container using Docker Compose with the compose configuration file found in the [GitHub repository](https://github.com/USGS-CIDA/docker-cida-auth) for this image.
+This container works as the back-end web service layer for the Auth Manager console in the CIDA Auth application. It also depends on the [Auth database container](https://hub.docker.com/r/usgs/auth-database/). It is easiest to run this container using Docker Compose with the compose configuration file found in the [GitHub repository](https://github.com/USGS-CIDA/docker-cida-auth) for this image.
 
 ## Docker Instructions
 
