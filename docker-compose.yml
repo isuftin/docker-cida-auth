@@ -24,8 +24,8 @@ services:
   # This container starts but waits for the LDAP server to come up
   # before running its main command. Check Dockerfile for more info.
   ldap-seed:
-    image: auth-ldap-seed:1.1.7-1
-    build: 
+    image: usgs/auth-ldap-seed:1.2.7-1
+    build:
       context: ./auth-ldap
       args:
         - doi_network=$doi_network
@@ -39,12 +39,12 @@ services:
         aliases:
           - ldap-server
     entrypoint: dockerize -wait tcp://ldap-server:389 sh -c '/ldif_files/addAll.sh'
-    depends_on: 
+    depends_on:
       - ldap-server
 
   auth-database:
-    image: auth-database:1.2.7-1
-    build: 
+    image: usgs/auth-database:1.2.7-1
+    build:
       context: ./auth-database
       args:
         - doi_network=$doi_network
@@ -56,10 +56,10 @@ services:
           - auth-database
     env_file:
       - "compose${AUTH_ENV_LOCAL}.env"
-    
+
   auth-manager-console:
-    image: auth-manager-console:1.2.7-1
-    build: 
+    image: usgs/auth-manager-console:1.2.7-1
+    build:
       context: ./auth-manager-console
       args:
         - doi_network=$doi_network
@@ -74,10 +74,10 @@ services:
       - "compose${AUTH_ENV_LOCAL}.env"
     depends_on:
       - auth-manager-core
-    
+
   auth-manager-core:
-    image: auth-manager-core:1.2.7-1
-    build: 
+    image: usgs/auth-manager-core:1.2.7-1
+    build:
       context: ./auth-manager-core
       args:
         - doi_network=$doi_network
@@ -93,3 +93,4 @@ services:
       - "compose${AUTH_ENV_LOCAL}.env"
     depends_on:
       - auth-database
+      - ldap-server
