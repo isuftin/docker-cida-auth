@@ -2,8 +2,6 @@ FROM postgres:9.5.3
 
 MAINTAINER Ivan Suftin <isuftin@usgs.gov>
 
-ARG doi_network=false
-
 RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" > /etc/apt/sources.list.d/webupd8team-java.list && \
 	echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list.d/webupd8team-java.list && \
 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886 && \
@@ -13,13 +11,10 @@ RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" > /e
 	apt-get -y install oracle-java8-installer wget maven && \
 	apt-get clean
 
-RUN if [ "${doi_network}" = true ]; then \
-		/usr/bin/wget -O /usr/lib/ssl/certs/DOIRootCA.crt http://blockpage.doi.gov/images/DOIRootCA.crt && \
-		ln -sf /usr/lib/ssl/certs/DOIRootCA.crt /usr/lib/ssl/certs/`openssl x509 -hash -noout -in /usr/lib/ssl/certs/DOIRootCA.crt`.0 && \
-		echo "\\n\\nca-certificate = /usr/lib/ssl/certs/DOIRootCA.crt" >> /etc/wgetrc && \
-
-		/usr/bin/keytool -keystore /usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts -importcert -alias DOIRootCA.crt -file /usr/lib/ssl/certs/DOIRootCA.crt -storepass changeit -noprompt; \
-	fi
+RUN	/usr/bin/wget -O /usr/lib/ssl/certs/DOIRootCA.crt http://blockpage.doi.gov/images/DOIRootCA.crt && \
+	ln -sf /usr/lib/ssl/certs/DOIRootCA.crt /usr/lib/ssl/certs/`openssl x509 -hash -noout -in /usr/lib/ssl/certs/DOIRootCA.crt`.0 && \
+	echo "\\n\\nca-certificate = /usr/lib/ssl/certs/DOIRootCA.crt" >> /etc/wgetrc && \
+	/usr/bin/keytool -keystore /usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts -importcert -alias DOIRootCA.crt -file /usr/lib/ssl/certs/DOIRootCA.crt -storepass changeit -noprompt
 
 ENV POSTGRES_PASSWORD postgres
 
@@ -41,6 +36,10 @@ COPY liquibase-settings.xml /liquibase/liquibase-settings.xml
 WORKDIR /liquibase/auth-database
 
 RUN mvn install -Dmaven.repo.local=/.m2/repository
+
+# Pre-install the artifacts required
+RUN cd /liquibase/auth-database && \
+	/usr/bin/mvn -X -s /liquibase/liquibase-settings.xml -Dmaven.repo.local=/.m2/repository install
 
 COPY liquibase.sh /docker-entrypoint-initdb.d/liquibase.sh
 
