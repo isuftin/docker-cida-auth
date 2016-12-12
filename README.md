@@ -12,6 +12,16 @@ $ export AUTH_ENV_LOCAL=".local"
 
 This will cause Docker Compose to pick up your `compose_local.env` file and use the values in there to drive the services.  These values typically include passwords, internal URLs, etc. If any changes are made to any ldif files or to the `addAll.sh` file, you will need to rebuild the auth-ldap container.
 
+### Docker Compose and running certain versions of containers
+
+Unless you specify otherwise, Docker Compose will use the latest version of the containers. If you wish to use a tagged version, export the AUTH_MANAGER_VERSION shell environment variable before running Docker Compose:
+
+```
+$ export AUTH_MANAGER_VERSION=":1.2.7"
+```
+
+Notice the colon at the beginning of the value. This is necessary in order for Docker Compose to pick up the proper tag.
+
 ### OpenLDAP
 
 The Docker Compose template includes an OpenLDAP server as well as a container that fills the server with users. Check https://github.com/osixia/docker-openldap for more information. If you do not need OpenLDAP support or plan on using your own LDAP server, either comment out the sections for OpenLDAP in docker-compose.yml (ldap-server and ldap-seed) or run compose without those two containers.

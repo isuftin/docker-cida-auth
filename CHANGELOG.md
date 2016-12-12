@@ -3,7 +3,12 @@ CHANGELOG
 
 latest
 ---
-- Updated image names in Docker Compose config to use usgs/ prefix now that images are in Dockerhub
+
+1.2.7-2
+---
+- isuftin@usgs.gov - Added the AUTH_MANAGER_VERSION environmental variable to dictate to Docker Compose which version (tagged or latest) of the application set to run
+- isuftin@usgs.gov - Updated image names in Docker Compose config to use usgs/ prefix now that images are in Dockerhub
+- isuftin@usgs.gov - auth-database - Switching to not branching on whether or not containers are being built on DOI network. Always grab DOI root certificate.
 
 1.2.7-1
 ---
