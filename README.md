@@ -17,7 +17,7 @@ This will cause Docker Compose to pick up your `compose_local.env` file and use 
 Unless you specify otherwise, Docker Compose will use the latest version of the containers. If you wish to use a tagged version, export the AUTH_MANAGER_VERSION shell environment variable before running Docker Compose:
 
 ```
-$ export AUTH_MANAGER_VERSION=":1.2.7"
+$ export AUTH_MANAGER_VERSION=":1.2.8"
 ```
 
 Notice the colon at the beginning of the value. This is necessary in order for Docker Compose to pick up the proper tag.
@@ -32,7 +32,7 @@ TODO- Implement LDAPS. Currently, only insecure LDAP is working. I've not yet at
 
 The users are currently stored in the `auth-ldap/ldif_files/people.ldif` file. Feel free to change the user names/passwords to fit your testing.  The password for each user is 'test'. Feel free to change that as well by hashing a text value using SHA1 and entering into the people.ldif file.
 
-The username for the LDAP admin user is `admin`. The password for the LDAP admin user is `admin`. The password is set in the environments file you run your docker-compose against. The key for the value is `LDAP_ADMIN_PASSWORD`. 
+The username for the LDAP admin user is `admin`. The password for the LDAP admin user is `admin`. The password is set in the environments file you run your docker-compose against. The key for the value is `LDAP_ADMIN_PASSWORD`.
 
 #### LDAP Groups
 
