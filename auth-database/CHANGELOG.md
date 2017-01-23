@@ -1,8 +1,11 @@
 CHANGELOG
 ===
 
-latest
+1.2.8-1
 ---
+
+- isuftin@usgs.gov - Version bump following CIDA Auth project release
+- isuftin@usgs.gov - Added Healthcheck
 
 1.2.7-2
 ---

@@ -1,8 +1,10 @@
 CHANGELOG
 ===
 
-latest
+1.2.8-1
 ---
+
+- isuftin@usgs.gov - Added healthcheck at the docker-compose level to ldap-server
 
 1.2.7-2
 ---

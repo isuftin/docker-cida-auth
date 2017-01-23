@@ -24,7 +24,9 @@ ENV POSTGRES_DB cida_auth
 
 ENV JAVA_HOME "/usr/lib/jvm/java-8-oracle"
 
-RUN /usr/bin/wget -O /root/auth-parent.tar.gz https://codeload.github.com/USGS-CIDA/cida-auth/tar.gz/auth-parent-1.2.7
+ENV AUTH_VERSION ${AUTH_VERSION:-1.2.8}
+
+RUN /usr/bin/wget -O /root/auth-parent.tar.gz "https://codeload.github.com/USGS-CIDA/cida-auth/tar.gz/auth-parent-${AUTH_VERSION}"
 
 RUN mkdir /liquibase
 
@@ -47,3 +49,8 @@ WORKDIR /
 
 RUN chown -R postgres:postgres /liquibase && \
 	chown -R postgres:postgres /.m2
+
+HEALTHCHECK --interval=2s --timeout=3s \
+ CMD PGPASSWORD="${POSTGRES_PASSWORD}" | \
+ 	echo "SELECT 1+1;" | \
+	psql -U "${POSTGRES_USER}" -w > /dev/null || exit 1
