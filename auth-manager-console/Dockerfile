@@ -6,7 +6,7 @@ ARG doi_network=false
 
 EXPOSE 8080
 
-ENV AUTH_VERSION ${AUTH_VERSION:-1.2.8}
+ENV AUTH_VERSION ${AUTH_VERSION:-1.2.9}
 
 RUN if [ "${doi_network}" = true ]; then \
 		/usr/bin/wget -O /usr/lib/ssl/certs/DOIRootCA.crt http://blockpage.doi.gov/images/DOIRootCA.crt && \

@@ -29,7 +29,7 @@ services:
   # This container starts but waits for the LDAP server to come up
   # before running its main command. Check Dockerfile for more info.
   ldap-seed:
-    image: usgs/auth-ldap-seed:1.2.8-1
+    image: usgs/auth-ldap-seed:1.2.9-1
     build:
       context: ./auth-ldap
       args:
@@ -48,7 +48,7 @@ services:
       - ldap-server
 
   auth-database:
-    image: usgs/auth-database:1.2.8-1
+    image: usgs/auth-database:1.2.9-1
     build:
       context: ./auth-database
     ports:
@@ -61,7 +61,7 @@ services:
       - "compose${AUTH_ENV_LOCAL}.env"
 
   auth-manager-console:
-    image: usgs/auth-manager-console:1.2.8-1
+    image: usgs/auth-manager-console:1.2.9-1
     build:
       context: ./auth-manager-console
       args:
@@ -79,7 +79,7 @@ services:
       - auth-manager-core
 
   auth-manager-core:
-    image: usgs/auth-manager-core:1.2.8-1
+    image: usgs/auth-manager-core:1.2.9-1
     build:
       context: ./auth-manager-core
       args:
