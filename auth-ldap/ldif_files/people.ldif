@@ -1,4 +1,4 @@
-dn: uid=test_user,dc=gs,dc=doi,dc=net
+dn: uid=test_user,ou=people,dc=wma,dc=usgs,dc=gov
 objectClass: shadowAccount
 objectClass: posixAccount
 objectClass: account
@@ -13,9 +13,9 @@ loginShell: /bin/bash
 shadowLastChange: 0
 shadowMax: 0
 shadowWarning: 0
-userPassword:: e3NoYX1xVXFQNWN5eG02WWNUQWh6MDVIcGg1Z3Z1OU09
+userPassword: {SSHA}v+PjJkxrAAdPkCM2qGLsnHZFSMsPujh7yEdFkw==
 
-dn: uid=test_user2,dc=gs,dc=doi,dc=net
+dn: uid=test_user2,ou=people,dc=wma,dc=usgs,dc=gov
 objectClass: shadowAccount
 objectClass: posixAccount
 objectClass: account
@@ -30,9 +30,9 @@ loginShell: /bin/bash
 shadowLastChange: 0
 shadowMax: 0
 shadowWarning: 0
-userPassword:: e3NoYX1xVXFQNWN5eG02WWNUQWh6MDVIcGg1Z3Z1OU09
+userPassword: {SSHA}v+PjJkxrAAdPkCM2qGLsnHZFSMsPujh7yEdFkw==
 
-dn: uid=test_user3,dc=gs,dc=doi,dc=net
+dn: uid=test_user3,ou=people,dc=wma,dc=usgs,dc=gov
 objectClass: shadowAccount
 objectClass: posixAccount
 objectClass: account
@@ -47,5 +47,4 @@ loginShell: /bin/bash
 shadowLastChange: 0
 shadowMax: 0
 shadowWarning: 0
-userPassword:: e3NoYX1xVXFQNWN5eG02WWNUQWh6MDVIcGg1Z3Z1OU09
-
+userPassword: {SSHA}v+PjJkxrAAdPkCM2qGLsnHZFSMsPujh7yEdFkw==

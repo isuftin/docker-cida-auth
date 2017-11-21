@@ -1,5 +1,6 @@
-dn: cn=cida_auth_group,dc=gs,dc=doi,dc=net
+dn: cn=cida_auth_group,ou=groups,dc=wma,dc=usgs,dc=gov
 cn: cida_auth_group
 objectClass: top
 objectClass: posixGroup
+userPassword: {crypt}x
 gidNumber: 200

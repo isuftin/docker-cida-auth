@@ -1,0 +1,131 @@
+---
+version: '3.4'
+
+configs:
+  ldap_startup_config:
+    file: ./auth-ldap/configs/ldap_startup.yaml
+  ldap_tls_crt_certificate:
+    file: ./auth-ldap/certs/ldap-server.cer
+  groups_ldif:
+    file: ./auth-ldap/ldif_files/groups.ldif
+  organizational_units_ldif:
+    file: ./auth-ldap/ldif_files/organizational_units.ldif
+  add_users_to_groups_ldif:
+    file: ./auth-ldap/ldif_files/addUsersToGroup.ldif
+  system_config_ldif:
+    file: ./auth-ldap/ldif_files/ldif_system_config.ldif
+
+secrets:
+  ldap_startup_secrets:
+    file: ./auth-ldap/configs/ldap_secrets.yaml
+  ldap_tls_private_key:
+    file: ./auth-ldap/certs/ldap-server.key
+  ldap_tls_ca_certificate:
+    file: ./auth-ldap/certs/ldap-root.cer
+  users_ldif:
+    file: ./auth-ldap/ldif_files/people.ldif
+
+networks:
+  auth-net:
+
+services:
+  server:
+    image: osixia/openldap:1.1.10
+    hostname: wma.usgs.gov
+    ports:
+      - "389:389"
+      - "636:636"
+    networks:
+      auth-net:
+        aliases:
+          - wma.usgs.gov
+    command: --loglevel debug --copy-service
+    configs:
+      - source: ldap_startup_config
+        target: /container/environment/01-custom/01-default_startup.yaml
+        mode: 0664
+      - source: ldap_tls_crt_certificate
+        target: /ldap-server.cer
+        mode: 0666
+        uid: '999'
+        gid: '999'
+      - source: add_users_to_groups_ldif
+        target: /container/service/slapd/assets/config/bootstrap/ldif/custom/04_add_users_to_groups.ldif
+        mode: 0666
+        uid: '999'
+        gid: '999'
+      - source: system_config_ldif
+        target: /container/service/slapd/assets/config/bootstrap/ldif/custom/00_system_config.ldif
+        mode: 0666
+        uid: '999'
+        gid: '999'
+      - source: organizational_units_ldif
+        target: /container/service/slapd/assets/config/bootstrap/ldif/custom/01_organizational_units.ldif
+        mode: 0666
+        uid: '999'
+        gid: '999'
+      - source: groups_ldif
+        target: /container/service/slapd/assets/config/bootstrap/ldif/custom/02_groups.ldif
+        mode: 0666
+        uid: '999'
+        gid: '999'
+    secrets:
+      - source: ldap_startup_secrets
+        target: /container/environment/01-custom/02-default_startup.yaml
+        mode: 0664
+      - source: ldap_tls_private_key
+        target: /ldap-server.key
+        mode: 0666
+        uid: '999'
+        gid: '999'
+      - source: ldap_tls_ca_certificate
+        target: /ldap-root.cer
+        mode: 0666
+        uid: '999'
+        gid: '999'
+      - source: users_ldif
+        target: /container/service/slapd/assets/config/bootstrap/ldif/custom/03_users.ldif
+        mode: 0666
+        uid: '999'
+        gid: '999'
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        failure_action: pause
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints:
+          - node.role == worker
+    healthcheck:
+      test: [ "CMD-SHELL", "/usr/bin/ldapwhoami -H ldap:// -x -Z | grep -q anonymous > /dev/null || exit 1" ]
+      interval: 120s
+      timeout: 10s
+      retries: 3
+
+  # This container starts but waits for the LDAP server to come up
+  # before running its main command. Check Dockerfile for more info.
+  # ldap-seed:
+  #   image: usgs/auth-ldap-seed:1.2.9-1
+  #   build:
+  #     context: ./auth-ldap
+  #     args:
+  #       - doi_network=$doi_network
+  #   container_name: auth-ldap-seed
+  #   volumes:
+  #     - ./auth-ldap/ldif_files:/ldif_files/
+  #   links:
+  #     - ldap-server
+  #   networks:
+  #     cida-auth-net:
+  #       aliases:
+  #         - ldap-server
+  #   entrypoint: dockerize -wait tcp://ldap-server:389 sh -c '/ldif_files/addAll.sh'
+  #   depends_on:
+  #     - ldap-server

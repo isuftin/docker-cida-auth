@@ -1,9 +1,14 @@
 CHANGELOG
 ===
 
-1.2.8-1
+1.2.9-1
 ---
 
+- isuftin@usgs.gov - Version bump to track release of CIDA Auth project
+
+1.2.8-1
+---
+- isuftin@usgs.gov - Version bump to track release of CIDA Auth project
 - isuftin@usgs.gov - Added healthcheck at the docker-compose level to ldap-server
 
 1.2.7-2

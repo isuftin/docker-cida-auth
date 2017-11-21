@@ -1,0 +1,11 @@
+dn: ou=people,dc=wma,dc=usgs,dc=gov
+objectClass: top
+objectClass: organizationalUnit
+ou: people
+description: An organizational unit named people
+
+dn: ou=groups,dc=wma,dc=usgs,dc=gov
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+description: An organizational unit named groups

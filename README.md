@@ -30,6 +30,8 @@ TODO- Implement LDAPS. Currently, only insecure LDAP is working. I've not yet at
 
 #### LDAP Users
 
+# http://projects.marsching.org/weave4j/util/genpassword.php
+
 The users are currently stored in the `auth-ldap/ldif_files/people.ldif` file. Feel free to change the user names/passwords to fit your testing.  The password for each user is 'test'. Feel free to change that as well by hashing a text value using SHA1 and entering into the people.ldif file.
 
 The username for the LDAP admin user is `admin`. The password for the LDAP admin user is `admin`. The password is set in the environments file you run your docker-compose against. The key for the value is `LDAP_ADMIN_PASSWORD`.

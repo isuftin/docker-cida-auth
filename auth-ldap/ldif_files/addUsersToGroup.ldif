@@ -1,15 +1,14 @@
-dn: cn=cida_auth_group,dc=gs,dc=doi,dc=net
+dn: cn=cida_auth_group,ou=groups,dc=wma,dc=usgs,dc=gov
 changetype: modify
 add: memberuid
-memberuid: tet_user
+memberUid: test_user
 
-dn: cn=cida_auth_group,dc=gs,dc=doi,dc=net
+dn: cn=cida_auth_group,ou=groups,dc=wma,dc=usgs,dc=gov
 changetype: modify
 add: memberuid
-memberuid: tet_user2
+memberUid: test_user2
 
-dn: cn=cida_auth_group,dc=gs,dc=doi,dc=net
+dn: cn=cida_auth_group,ou=groups,dc=wma,dc=usgs,dc=gov
 changetype: modify
 add: memberuid
-memberuid: tet_user3
-
+memberUid: test_user3
